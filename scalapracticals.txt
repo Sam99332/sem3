@@ -1,0 +1,291 @@
+Practical No: 01
+Aim:- Write a simple Scala Program that prints a welcome message for data scientists.
+Input:
+object Hellomsg {
+  def main(args: Array[String]): Unit = {
+    println("Welcome to CS Students to Become Data Scientist")
+  }
+}
+Practical No: 02
+Aim:- Calculate mean, median, and mode of a list of numbers. Implement basic statistical calculations using Scala collections.
+object math {
+    def main(args: Array[String]): Unit={
+        val num= List(1,3,3,5,7,9,11,13,15)
+        val mean= num.sum/num.size
+
+        val sorted_num=num.sorted
+        val median= if (num.size%2==0){
+            (sorted_num(num.size/2)+sorted_num(num.size/2-1))/2
+        }
+        else{
+            sorted_num(num.size/2)
+        }
+
+        val frequencymap= num.groupBy(a =>a).map(a => (a._1,a._2.size))
+        val highfreq=frequencymap.values.max
+        val mode=frequencymap.filter(b => b._2==highfreq).keys.toList
+
+        println(s"Mean:$mean")
+        println(s"Median:$median")
+        println(s"Mode:$mode")
+    }  
+}
+Practical No: 04
+Aim:- Create a dense vector using Breeze and calculate its sum, mean, and dot product with another vector.
+Input:
+import breeze.linalg._
+import breeze.stats.mean
+object breezevector {
+    def main(args:Array[String]):Unit={
+        val vector1=DenseVector(2.0,4.0,6.0,8.0,10.0)
+        println(s"Vector1 $vector1")
+        val sum1= sum(vector1)
+        println(s"Sum:$sum1")
+        val mean1=mean(vector1)
+        println(s"Mean:$mean1")
+        val vector2=DenseVector(1.0,3.0,5.0,7.0,9.0)
+        println(s"Vector2 $vector2")
+        val dotprod= vector1 dot vector2
+        println(s"Dot Product:$dotprod")
+    }
+}
+
+Practical No: 05
+Aim:- Generate a random matrix using Breeze and compute its transpose and determinant.
+import breeze.linalg._
+object matrixcalc {
+    def main(args:Array[String]):Unit={
+        val mat=DenseMatrix.rand[Double](3, 3)
+        val transpose=mat.t
+        val determinant=det(mat)
+        println("Matrix:")
+        println(mat)
+        println("Transpose:")
+        println(transpose)
+        println("Determinant:")
+        println(determinant)
+    }
+}
+Practical No: 06
+Aim:- Slice a Breeze matrix to extract a sub-matrix and calculate its row and column sums.
+Input:
+import breeze.linalg._
+object matcalc {
+  def main(args:Array[String]):Unit={
+    val mat=DenseMatrix.rand(4,4)
+    println("Matrix:")
+    println(mat)
+    val submat=mat(0 to 1, 0 to 1)
+    println("Submatrix:")
+    println(submat)
+
+    val rowsum=sum(submat(*,::))
+    println("Sum of Rows of Submatrix:")
+    println(rowsum)
+
+    val colsum=sum(submat(::,*))
+    println("Sum of Cols of Submatrix:")
+    println(colsum)
+
+  }
+}
+Practical No: 07
+Aim:- Write a program to perform element-wise addition, subtraction, multiplication, and division of two Breeze matrices.
+Input:
+import breeze.linalg._
+import breeze.numerics._
+object matrixop {
+  def main(args:Array[String]):Unit={
+    val mat1=DenseMatrix((1,2,3),(4,5,6),(7,8,9))
+    val mat2=DenseMatrix((9,8,7),(6,5,4),(3,2,1))
+    println(s"Matrix 1:\n$mat1")
+    println(s"Matrix 2:\n$mat2")
+    val add=mat1+mat2
+    val sub=mat2-mat1
+    val mul=mat1 *:* mat2
+    val div=mat1 /:/ mat2
+    println(s"Element-Wise Addition:\n$add")
+    println(s"Element-Wise Subtraction:\n$sub")
+    println(s"Element-Wise Multiplication:\n$mul")
+    println(s"Element-Wise Division:\n$div")
+  }
+}
+Practical No: 09
+Aim:- Create a scatter plot of random data using Breeze-viz. Label the axes and customize the color of points
+Input:
+import breeze.linalg._
+import breeze.plot._
+import java.awt.Color
+object Practical09 {
+    def main(args:Array[String]):Unit={
+        val weight=DenseVector.rand(10)
+        val height=DenseVector.rand(10)
+        val fig=Figure("Scatter Plot")
+        val plt=fig.subplot(0)
+        plt+=scatter(weight,height,_ =>0.01,_ =>java.awt.Color.MAGENTA)
+        plt.xlabel="weight"
+        plt.ylabel="height"
+        plt.title= "Height vs Weight Relation"
+        fig .refresh()
+        scala.io.StdIn.readLine()
+    }
+}
+Practical No: 10
+Aim:- Plot a line graph for a dataset showing a trend over time.
+Input:
+import breeze.linalg._
+import breeze.plot._
+object Practical10 {
+  def main(args:Array[String]):Unit={
+        val month=DenseVector(1,2,3,4,5,6,7,8,9,10,11,12)
+        val sales=DenseVector(200,250,300,350,150,140,200,250,400,320,450,130)
+        val fig=Figure("Line Plot")
+        val plt=fig.subplot(0)
+        plt+=plot(month,sales,colorcode="m")
+        plt.xlabel="Month"
+        plt.ylabel="Sales"
+        plt.title= "Monthly Sales Trend"
+        plt.legend=true
+        fig .refresh()
+        scala.io.StdIn.readLine()
+    }
+}
+Practical No: 13
+Aim:- Calculate the moving average of a time series data using Scala collections.
+Input:
+object movingaverage {
+  def main(args:Array[String]):Unit={
+    val timeseries=List(10,20,30,40,50,60,70,80,90,100)
+    val windowsize=3
+    val res=moveavg(timeseries,windowsize)
+    println(s"Moving Average of TimeSeries:$res")
+  }
+  def moveavg(data:List[Int],window:Int):List[Double]={
+    val res=data.sliding(window).map(_.sum.toDouble / window).toList
+    res
+  }
+}
+Practical No: 14
+Aim:- Write a program to compute frequency distribution and cumulative frequency of a dataset.
+Input:
+object Practical14 {
+    def main(args: Array[String]): Unit = {
+        val data = List(2, 3, 2, 5, 3, 2, 4, 5, 5, 3)
+        val unique= data.distinct.sorted
+        var cumFreq = 0
+        println("Values\tFreq\tCumulative")
+        for (v <- unique) {
+            val freq = data.count(_ == v)
+            cumFreq += freq
+            println(s"$v\t$freq\t$cumFreq")
+        }
+    }
+}
+Practical No: 15
+Aim:- Sort a dataset by a specific column and extract the top 5 rows.
+Input:
+object Sorting {
+  def main(args: Array[String]): Unit={
+    val dataset=List(("Doraemon",90),
+                     ("Nobita",50),
+                     ("Shizuka",85),
+                     ("Gian",70),
+                     ("Sunio",75),
+                     ("Dorami",95))
+    val top5data= dataset.sortBy(_._2)(Ordering[Int].reverse).take(5)
+    println("Top 5 scorer:")
+    top5data.foreach{case(name,score)=>println(s"$name:$score")}
+  }
+}
+Practical No: 16
+Aim:- Implement linear regression using Breeze. Fit a model to a small dataset and predict a value.
+Input:
+import breeze.linalg._
+object LinearRegression {
+    def main(args: Array[String]): Unit = {
+        val x = DenseVector(1.0, 2.0, 3.0, 4.0, 5.0)
+        val y = DenseVector(2.0, 4.0, 6.0, 8.0, 10.0)
+
+        val meanx = sum(x) / x.length
+        val meany = sum(y) / y.length
+
+        val slope = sum((x - meanx) *:* (y - meany)) / sum((x - meanx) *:* (x - meanx))
+        val intercept = meany - slope * meanx
+
+        println(s"Linear Model: y = $slope * x + $intercept")
+
+        val xnew = 6.0
+        val ypredicted = slope * xnew + intercept
+        println(s"Predicted value: $ypredicted")
+    }
+}
+Practical No: 17
+Aim:- Perform Logistic regression using Smile. Classify a dataset with a binary labels.
+Input:
+import smile.classification.LogisticRegression
+import smile.data._
+object logiregression {
+    def main(args:Array[String]): Unit = {
+        val x = Array(
+            Array(1.0),
+            Array(2.0),
+            Array(3.0),
+            Array(4.0),
+            Array(5.0),
+            Array(6.0)
+        )
+        val y = Array(0, 0, 0, 1, 1, 1)
+        val model = LogisticRegression.fit(x, y)
+        val prediction = model.predict(Array(3.5))
+        println(s"Prediction: $prediction")
+    }
+}
+Practical No: 18
+Aim:- Compute the Euclidean distance between two Breeze vectors. Use it for nearest neighbour classification.
+Input:
+import breeze.linalg._
+object knn {
+
+  def euclideanDistance(x: DenseVector[Double], y: DenseVector[Double]): Double = {
+    norm(x - y)
+  }
+  def nearestNeighbour(train: Array[DenseVector[Double]], test: DenseVector[Double], labels: Array[Int]): Int = {
+    val distance = train.map(euclideanDistance(_, test))
+    val min = distance.zipWithIndex.minBy(_._1)._2
+    labels(min)
+  }
+  def main(args: Array[String]): Unit = {
+    val traindata = Array(
+      DenseVector(1.0, 1.5),
+      DenseVector(2.0, 2.5),
+      DenseVector(3.0, 3.5),
+      DenseVector(4.0, 4.5)
+    )
+    val labels = Array(1, 0, 1, 0)
+    val testdata = DenseVector(1.5, 2.5)
+    val predict = nearestNeighbour(traindata, testdata, labels)
+    println(predict)
+  }
+}
+Practical No: 19
+Aim:- Cluster a dataset into two groups using k-means clustering in Smile.
+Input:
+import smile.clustering._
+object kmeansalgo {
+  def main(args: Array[String]): Unit = {
+    val data = Array(
+        Array(1.0, 2.0),
+        Array(1.5, 1.8),
+        Array(5.0, 8.0),
+        Array(8.0, 8.0),
+        Array(1.0, 0.6),
+        Array(9.0, 11.0)
+    )
+    val model = KMeans.fit(data, 2)
+    val cluster = model.predict(Array(2.0, 2.0))
+    println(s"Predicted cluster: $cluster")
+  }
+}
+
+
+

@@ -1,0 +1,548 @@
+Practical No: 01
+Aim:- 
+A)Write a java program for the addition of two integers.
+B) Write a java program for the average of three integers.
+A)	Write a java program for the addition of two integer.
+Input:
+class Addition
+    {
+    public static void main(String args[]){
+            int a=5;
+            int b=7;
+            int c;
+            c=a+b;
+    System.out.println("Addition of two no. is"+c);
+	
+    }
+}
+B)	Write a java program for the average of three integers
+Input:
+public class Average {
+    public static void main(String[] args) {
+        double num1 = 20.5;
+        double num2 = 30.5;
+        double num3 = 40.5;
+
+        double average = (num1 + num2 + num3) / 3;
+        System.out.println("The average is: " + average);
+    }
+}
+Practical No: 02
+Aim:- 
+A.	Write a Java program to Implement Single Inheritance. 
+B.	Write a Java program to Implement Method Overriding.
+C.	Write a Java program to Implement Method Overloading.
+D.	Write a Java program to Implement Abstract Class.
+E.	Write a Java program to Implement Interface.
+Input:
+class Animal {
+    public void eat() {
+        System.out.println("I can eat");
+    }
+}
+
+class Dog extends Animal {
+    void display() {
+        System.out.println("I can bark");
+    }
+
+    public static void main(String[] args) {
+        Dog d1 = new Dog();
+        d1.display();
+        d1.eat(); 
+    }
+}
+Write a Java program to implement Method Overriding.
+Input:
+class Vehicle{
+    void run(){System.out.println("Vehicle is Running");}
+}
+class Bike extends Vehicle{
+    void run(){System.out.println("Bike is Running Safely");}
+}
+public class Main{
+    public static void main(String args[]){
+        Bike obj = new Bike();;
+        obj.run();
+    }
+}
+Write a Java program to implement Method Overloading.
+Input: 
+class MathUtils {
+    int add(int a, int b) {
+        return a + b;
+    }
+    double add(double a, double b) {
+        return a + b;
+    }
+}
+public class TestMethodOverload {
+    public static void main(String[] args) {
+        MathUtils m = new MathUtils();
+        System.out.println(m.add(5, 3));
+        System.out.println(m.add(5.5, 3.2));
+    }
+}
+
+Write a Java program to implement the Abstract Class
+Input:
+abstract class Animal {
+    abstract void sound();
+    void eat() {
+        System.out.println("Eating food...");
+    }
+}
+class Dog extends Animal {
+    void sound() {
+        System.out.println("Barks");
+    }
+}
+public class TestAbstract {
+    public static void main(String[] args) {
+        Dog d = new Dog();
+        d.sound();
+        d.eat();
+    }
+}
+Write a Java program to implement the Interface.
+Input:
+interface Shape {
+    void draw();
+}
+class Circle implements Shape {
+    public void draw() {
+        System.out.println("Drawing Circle");
+    }
+}
+public class TestInterface {
+    public static void main(String[] args) {
+        Shape s = new Circle();
+        s.draw();
+    }
+}
+Practical No: 03
+Aim:- 
+A)	Write a java program to implement Built-in package.
+B)	Write a java program to implement Exception Handling.
+
+A) Write a java program to implement built-in package.
+Input:
+
+import java.util.Scanner;
+
+class Geeks {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter your name:");
+        String name = sc.nextLine(); 
+
+        System.out.println("Hello, " + name + " Welcome to the GeeksforGeeks.");
+    }
+}
+B) Write a java program to implement exception handling.
+Input:
+import java.io.*;
+class exception{
+   public static void main(String[] args)
+   {
+    int n = 10;
+    int m= 0;
+    try{ 
+      int ans = n/m;
+      System.out.println("Answer: " + ans);
+    }
+    catch(ArithmeticException e) {
+       
+      System.out.println(
+          "Error: Divison by zero is not allowed!");
+    }
+    finally{
+         System.out.println(
+              "Program continues after handling the exception.");
+       }
+    }
+}
+Practical No: 04
+Aim:- Multithreading: Thread creation, Thread life cycle, Synchronization, wait(), notify(), notifyAll().
+class BankAccount { 
+ private int balance = 0; 
+ public synchronized void deposit(int amount) { 
+ balance += amount; 
+ System.out.println("Deposited: " + amount); 
+ notify(); 
+ } 
+ public synchronized void withdraw(int amount) { 
+ while (balance < amount) { 
+ System.out.println("Insufficient balance. Waiting for deposit...");  try { 
+ wait(); 
+ } catch (InterruptedException e) { 
+ e.printStackTrace(); 
+ } 
+ } 
+ balance -= amount; 
+ System.out.println("Withdrawn: " + amount); 
+ } 
+ public int getBalance() { 
+ return balance; 
+ } 
+} 
+class Depositor extends Thread { 
+ private BankAccount account; 
+ public Depositor(BankAccount account) { 
+ this.account = account; 
+ } 
+ public void run() { 
+ try { 
+ Thread.sleep(1000); 
+ account.deposit(1000); 
+ } catch (InterruptedException e) { 
+ e.printStackTrace(); 
+ } 
+ } 
+} 
+class Withdrawer extends Thread { 
+ private BankAccount account; 
+ public Withdrawer(BankAccount account) { 
+ this.account = account; 
+ } 
+ public void run() { 
+ account.withdraw(500); 
+ } 
+} 
+public class BankApp { 
+ public static void main(String[] args) { 
+ BankAccount account = new BankAccount(); 
+
+ Withdrawer t1 = new Withdrawer(account); 
+ Depositor t2 = new Depositor(account); 
+ t1.start(); 
+ t2.start(); 
+ } 
+}
+
+
+
+Practical No: 05
+Aim:- 
+A.	Write a java program to implement a Calculator.
+B.	Write a java program to implement a Biodata using swing.
+C.	Write a java program to implement a Calculator.
+Input:
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+public class Calculator extends JFrame implements ActionListener {
+JButton addBtn, subBtn, mulBtn, divBtn, eqBtn, clrBtn;
+JButton[] digitButtons = new JButton[10];
+JTextField res;
+int n1, n2, result;
+char op;
+public Calculator() {
+        super("Calculator");
+        setLayout(new BorderLayout());
+        res = new JTextField();
+        res.setEditable(false);
+        res.setHorizontalAlignment(JTextField.RIGHT);
+        add(res, BorderLayout.NORTH);
+        JPanel p = new JPanel();
+        p.setLayout(new GridLayout(4, 4, 5, 5));
+        for (int i = 0; i <= 9; i++) {
+            digitButtons[i] = new JButton(String.valueOf(i));
+            digitButtons[i].addActionListener(this);
+            p.add(digitButtons[i]);
+        }
+        addBtn = new JButton("+");
+        subBtn = new JButton("-");
+        mulBtn = new JButton("*");
+        divBtn = new JButton("/");
+        eqBtn = new JButton("=");
+        clrBtn = new JButton("C");
+        addBtn.addActionListener(this);
+        subBtn.addActionListener(this);
+        mulBtn.addActionListener(this);
+        divBtn.addActionListener(this);
+        eqBtn.addActionListener(this);
+        clrBtn.addActionListener(this);
+        p.add(addBtn);
+        p.add(subBtn);
+        p.add(mulBtn);
+        p.add(divBtn);
+        p.add(eqBtn);
+        p.add(clrBtn);
+        add(p, BorderLayout.CENTER);
+        setSize(250, 250);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
+    }
+    public void actionPerformed(ActionEvent ae) {
+        JButton btnClicked = (JButton) ae.getSource();
+        if (btnClicked == clrBtn) {
+            res.setText("");
+            n1 = n2 = result = 0;
+        } else if (btnClicked == eqBtn) {
+            try {
+                n2 = Integer.parseInt(res.getText());
+                eval();
+                res.setText(String.valueOf(result));
+            } catch (NumberFormatException e) {
+                res.setText("Error");
+            }
+        } else if (btnClicked == addBtn || btnClicked == subBtn ||
+                   btnClicked == mulBtn || btnClicked == divBtn) {
+            try {
+                n1 = Integer.parseInt(res.getText());
+                res.setText("");
+                if (btnClicked == addBtn) op = '+';
+                else if (btnClicked == subBtn) op = '-';
+                else if (btnClicked == mulBtn) op = '*';
+                else if (btnClicked == divBtn) op = '/';
+            } catch (NumberFormatException e) {
+                res.setText("Error");
+            }
+        } else {
+            for (int i = 0; i <= 9; i++) {
+                if (btnClicked == digitButtons[i]) {
+                    res.setText(res.getText() + i);
+                    break;
+                }
+            }
+        }
+    }
+    void eval() {
+        switch (op) {
+            case '+': result = n1 + n2; break;
+            case '-': result = n1 - n2; break;
+            case '*': result = n1 * n2; break;
+            case '/':
+                if (n2 != 0) result = n1 / n2;
+                else {
+                    res.setText("Divide by 0");
+                    return;
+                }
+                break;
+        }
+    }
+    public static void main(String[] args) {
+        new Calculator();
+    }
+}
+A.	Write a java program to implement a Biodata using swing.
+Code:
+import javax.swing.*; 
+import java.awt.*; 
+import java.awt.event.*; 
+class Biodata extends JFrame implements ActionListener { 
+ private JLabel l1,l2,l3,l4; 
+ private JTextField n; 
+ private JRadioButton r1,r2; 
+ private ButtonGroup g; 
+ private JCheckBox c1,c2,c3; 
+ private JTextArea a; 
+ private JButton b;   
+ Biodata() 
+ { 
+ super("Enter Biodata"); 
+ Container c = getContentPane(); 
+ c.setLayout(new GridLayout(4,2));   
+ l1 = new JLabel("Name"); 
+ c.add(l1);  
+ n = new JTextField("Enter your name",20);  n.setToolTipText("Please enter your name");  c.add(n); 
+ l4 = new JLabel("Gender"); 
+ c.add(l4); 
+ r1 = new JRadioButton("Male",true);  c.add(r1); 
+ r2 = new JRadioButton("Female",false);  c.add(r2); 
+ g = new ButtonGroup(); 
+ g.add(r1); 
+ g.add(r2); 
+ l2 = new JLabel("Qualification");  c.add(l2); 
+ c1 = new JCheckBox("BTech"); 
+ c.add(c1); 
+ c2 = new JCheckBox("BSc.CS"); 
+ c.add(c2); 
+ c3 = new JCheckBox("BSc.IT"); 
+ c.add(c3); 
+ l3 = new JLabel("Address"); 
+ c.add(l3); 
+ a = new JTextArea(10,15); 
+ c.add(a); 
+ b = new JButton("Show");
+ c.add(b); 
+ b.addActionListener(this); 
+ setVisible(true); 
+ setSize(400,400); 
+ } 
+ public void actionPerformed(ActionEvent e)  { 
+ String s = ""+n.getText()+"\n"; 
+ s += (r1.isSelected())?r1.getText()+"\n":r2.getText()  +"\n"; 
+ if(c1.isSelected()) s += (c1.getText()) + " ";  if(c2.isSelected()) s += (c2.getText()) + " ";  if(c3.isSelected()) s += (c3.getText());  s += "\n"+a.getText()+"\n"; 
+ JOptionPane.showMessageDialog(null,s);  } 
+ public static void main(String args[]) 
+ {  
+ new Biodata(); 
+ } 
+}
+Practical No. 06
+Aim: Write a Java Program to Implement Collection Framework
+Input: 
+import java.util.*;
+public class CollectionDemo{
+	public static void main(String[] args){
+		List<String>arrayList= new ArrayList<>();
+		arrayList.add("Apple");
+		arrayList.add("Banana");
+		arrayList.add("Apple");
+		System.out.println("ArrayLIst: " + arrayList);
+	
+		List<String>linkedList=new LinkedList<>();
+		linkedList.add("Dog");
+		linkedList.add("Cat");
+		linkedList.add("Dog");
+		System.out.println("LinkedList: " + linkedList);
+
+		Set<String>hashSet=new HashSet<>();
+		hashSet.add("Red");
+		hashSet.add("Green");
+		hashSet.add("Red");
+		System.out.println("HashSet: " + hashSet);
+
+		Set<String> treeSet=new TreeSet<>();
+		treeSet.add("Banana");
+		treeSet.add("Apple");
+		treeSet.add("Mango");
+		System.out.println("TreeSet(sorted): " + treeSet);
+	
+		Map<Integer, String> hashMap=new HashMap<>();
+		hashMap.put(101, "Alice");
+		hashMap.put(102, "Bob");
+		hashMap.put(101, "Charlie");
+		System.out.println("HashMap: " + hashMap);
+	}
+}
+Practical No. 07
+Aim: Write a Java Program to display Table Program.
+
+MYSQL:
+  
+
+
+
+
+
+
+
+
+
+
+
+Input: 
+import java.sql.*;
+public class ABC {
+    public static void main(String[] args) {
+        String url ="jdbc:mysql://localhost:3306/testdb";
+        String user="root";
+        String password="root";
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn = DriverManager.getConnection(url, user, password);
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM students");
+            System.out.println("ID\tName\tCourse");
+            while (rs.next()) {
+                System.out.println(rs.getInt("id") + "\t" +
+                        rs.getString("name") + "\t" +
+                        rs.getString("course"));
+            }
+            rs.close();
+            stmt.close();
+            conn.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+Practical No. 08
+Aim: Write JSON Programming in Java using org.json.
+Input: 
+import org.json.JSONObject;
+public class JsonExample {
+    public static void main(String[] args) {
+        JSONObject person = new JSONObject();
+        person.put("name", "Alice");
+        person.put("age", 25);
+        person.put("email", "alice@example.com");
+        System.out.println("JSON Data:");
+        System.out.println(person.toString(2));
+        String jsonString = "{\"name\":\"Bob\", \"age\":30, \"email\":\"bob@example.com\"}";
+        JSONObject parsedPerson = new JSONObject(jsonString);
+        System.out.println("\nParsed JSON:");
+        System.out.println("Name: " + parsedPerson.getString("name"));
+        System.out.println("Age: " + parsedPerson.getInt("age"));
+        System.out.println("Email: " + parsedPerson.getString("email"));
+    }
+}
+Practical No: 09
+Aim: Write a java program to servlet a java program
+Input:
+index.html
+<form action="servlet1" method="post">  
+Name:<input type="text" name="userName"/><br/>  
+<input type="submit" value="go"/>  
+</form>  
+
+FirstServlet.java
+import java.io.*;  
+import javax.servlet.*;  
+import javax.servlet.http.*;  
+  
+  
+public class FirstServlet extends HttpServlet {  
+  
+  public void doPost(HttpServletRequest request, HttpServletResponse response){  
+    try{  
+  
+    response.setContentType("text/html");  
+    PrintWriter out = response.getWriter();  
+          
+    String n=request.getParameter("userName");  
+    out.print("Welcome "+n);  
+  
+    Cookie ck=new Cookie("uname",n);//creating cookie object  
+    response.addCookie(ck);//adding cookie in the response  
+  
+    //creating submit button  
+    out.print("<form action='servlet2'>");  
+    out.print("<input type='submit' value='go'>");  
+    out.print("</form>");  
+          
+    out.close();  
+  
+        }catch(Exception e){System.out.println(e);}  
+  }  
+}  
+SecondServlet.java
+import java.io.*;  
+import javax.servlet.*;  
+import javax.servlet.http.*;  
+  
+public class SecondServlet extends HttpServlet {  
+  
+public void doPost(HttpServletRequest request, HttpServletResponse response){  
+    try{  
+  
+    response.setContentType("text/html");  
+    PrintWriter out = response.getWriter();  
+      
+    Cookie ck[]=request.getCookies();  
+    out.print("Hello "+ck[0].getValue());  
+  
+    out.close();  
+  
+         }catch(Exception e){System.out.println(e);}  
+    }  
+      
+  
+}
+
+
